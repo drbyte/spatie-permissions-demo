@@ -2,11 +2,27 @@
 
 namespace Tests\Feature;
 
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PermissionsDemoTest extends TestCase
 {
+    use RefreshDatabase;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $permission = Permission::create(['name' => 'edit articles']);
+        $role1 = Role::create(['name' => 'writer']);
+        $role1->givePermissionTo($permission->name);
+
+        $this->app->make(PermissionRegistrar::class)->registerPermissions();
+    }
+
     /**
      * @test
      */
@@ -33,10 +49,14 @@ class PermissionsDemoTest extends TestCase
      */
     public function it_shows_message_confirming_permission_is_granted()
     {
-        $response = $this->actingAs(\App\User::find(1))->get('/');
+        $user = factory(\App\User::class)->create();
+        $user->assignRole('writer');
+
+        $response = $this->actingAs(\App\User::find($user->id))->get('/');
+
+        $response->assertDontSeeText('@hasrole');
 
         $response->assertSeeText("You have permission to 'edit articles'.");
-        $response->assertDontSeeText('@hasrole');
     }
 
 }
