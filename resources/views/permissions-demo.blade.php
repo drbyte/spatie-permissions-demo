@@ -9,3 +9,7 @@
 @else
   <p>Sorry, you may NOT edit articles.</p>
 @endcan
+
+@if(optional(auth('admin')->user())->can('edit articles'))
+  <p>You are an Admin with 'edit articles' permission.</p>
+@endif
