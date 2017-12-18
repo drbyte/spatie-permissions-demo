@@ -9,18 +9,19 @@ class ExamplesController extends Controller
     public function show_my_roles()
     {
 //        $user = auth()->user();
+//        or
         $user = \App\User::find(1);
         $roles = $user->getRoleNames();
 
-        dd($roles);
+        return var_export($roles, true);
 
-        // output:
-        /**
-        Collection {#619 ▼
-          #items: array:1 [▼
+// output:
+/**
+        Collection {
+          #items: array:1 [
             0 => "writer"
           ]
         }
-         */
+ */
     }
 }
