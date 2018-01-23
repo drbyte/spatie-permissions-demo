@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Cache::extend('ehann-redis', function ($app) {
+            return Cache::repository(new \Ehann\Cache\RedisStore(
+                $app['redis'],
+                $app['config']['cache.prefix'],
+                $app['config']['cache.stores.redis.connection']
+            ));
+        });
     }
 
     /**

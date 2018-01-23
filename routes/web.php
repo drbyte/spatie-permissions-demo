@@ -24,3 +24,11 @@ Route::get('/my_roles', 'ExamplesController@show_my_roles')->middleware('auth');
 
 Route::resource('/post', 'PostsController');
 
+
+Route::get('/redis', function () {
+    $users = Cache::remember('users', $minutes = 2, function () {
+        return DB::table('users')->get();
+    });
+
+    dd($users);
+});

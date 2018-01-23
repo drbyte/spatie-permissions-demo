@@ -12,6 +12,9 @@ before_script:
 addons:
   mariadb: '10.2'
 
+services:
+  - redis-server
+
 cache:
   directories:
     - vendor
