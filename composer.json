@@ -36,6 +36,7 @@
     "extra": {
         "laravel": {
             "dont-discover": [
+                "spatie/laravel-permission"
             ]
         }
     },
