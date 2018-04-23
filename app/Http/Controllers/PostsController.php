@@ -10,7 +10,7 @@ class PostsController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
-        $this->authorizeResource('post');
+//        $this->authorizeResource('post');
     }
     /**
      * Display a listing of the resource.
@@ -28,9 +28,12 @@ class PostsController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
+        $this->authorize('create', Post::class);
+
         $post = new Post;
 
         return view('posts.edit', compact('post'));
@@ -41,9 +44,12 @@ class PostsController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Post::class);
+
         $this->validate($request, [
             'title'     => 'required',
             'body'      => 'required',
@@ -65,9 +71,12 @@ class PostsController extends Controller
      *
      * @param  \App\Post $post
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Post $post)
     {
+        $this->authorize('view', $post);
+
         return view('posts.show', compact('post'));
     }
 
@@ -76,9 +85,12 @@ class PostsController extends Controller
      *
      * @param  \App\Post $post
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
+
         return view('posts.edit', compact('post'));
     }
 
@@ -88,9 +100,12 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Post $post
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('update', $post);
+
         $this->validate($request, [
             'title'     => 'required',
             'body'      => 'required',
@@ -110,9 +125,12 @@ class PostsController extends Controller
      *
      * @param  \App\Post $post
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
+
         $post->delete();
 
         return redirect('post.index');
