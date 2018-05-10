@@ -14,6 +14,8 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:edit articles')->only('testmiddleware');
+        $this->middleware('role:writer')->only('testmiddleware');
     }
 
     /**
@@ -24,5 +26,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function testmiddleware()
+    {
+        return 'Middleware Method Allowed';
     }
 }
