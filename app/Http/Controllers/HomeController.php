@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('permission:edit articles')->only('testmiddleware');
-        $this->middleware('role:writer')->only('testmiddleware');
+        $this->middleware('role:admin|writer')->only('testmiddleware');
     }
 
     /**
