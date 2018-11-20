@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -14,7 +15,7 @@ class MiddlewareTest extends TestCase
     /** @test */
     public function middleware_in_constructor_using_only()
     {
-        app()['cache']->forget('spatie.permission.cache');
+        $this->app->make(PermissionRegistrar::class)->forgetCachedPermissions();
 
         $permission = Permission::create(['name' => 'edit articles']);
         $role1 = Role::create(['name' => 'admin']);
