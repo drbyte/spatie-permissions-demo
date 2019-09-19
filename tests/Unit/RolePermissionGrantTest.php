@@ -13,7 +13,7 @@ class RolePermissionGrantTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

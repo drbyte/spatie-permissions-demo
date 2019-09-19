@@ -14,7 +14,7 @@ class PostsTest extends TestCase
 
     protected $author, $admin;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
