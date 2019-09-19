@@ -16,14 +16,9 @@ class PostsTest extends TestCase
 
     public function setUp()
     {
-        static $permissionsCreated;
-
         parent::setUp();
 
-        if ($permissionsCreated !== true) {
-            $this->setupPermissions();
-            $permissionsCreated = true;
-        }
+        $this->setupPermissions();
 
         $this->member = factory(\App\User::class)->create();
 
@@ -33,23 +28,22 @@ class PostsTest extends TestCase
         $this->admin = factory(\App\User::class)->create();
         $this->admin->assignRole('admin');
 
-
         $this->setupPosts();
     }
 
     protected function setupPermissions()
     {
-        Permission::create(['name' => 'view unpublished posts']);
-        Permission::create(['name' => 'create posts']);
-        Permission::create(['name' => 'edit own posts']);
-        Permission::create(['name' => 'edit all posts']);
-        Permission::create(['name' => 'delete own posts']);
-        Permission::create(['name' => 'delete any post']);
+        Permission::findOrCreate('view unpublished posts');
+        Permission::findOrCreate('create posts');
+        Permission::findOrCreate('edit own posts');
+        Permission::findOrCreate('edit all posts');
+        Permission::findOrCreate('delete own posts');
+        Permission::findOrCreate('delete any post');
 
-        Role::create(['name' => 'author'])
+        Role::findOrCreate('author')
             ->givePermissionTo(['create posts', 'edit own posts', 'delete own posts']);
 
-        Role::create(['name' => 'admin'])
+        Role::findOrCreate('admin')
             ->givePermissionTo(['view unpublished posts', 'create posts', 'edit all posts', 'delete any post']);
 
         $this->app->make(PermissionRegistrar::class)->registerPermissions();
@@ -199,6 +193,7 @@ class PostsTest extends TestCase
     public function authors_can_delete_own_posts()
     {
         $this->setupPosts();
+        $this->withoutExceptionHandling();
 
         $response = $this
             ->actingAs($this->author)

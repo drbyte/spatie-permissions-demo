@@ -34,7 +34,7 @@ class PostPolicy
         }
 
         // authors can view their own unpublished posts
-        return $user->id === $post->user_id;
+        return $user->id == $post->user_id;
     }
 
     /**
@@ -60,7 +60,7 @@ class PostPolicy
     public function update(User $user, Post $post)
     {
         if ($user->can('edit own posts')) {
-            return $user->id === $post->user_id;
+            return $user->id == $post->user_id;
         }
 
         if ($user->can('edit all posts')) {
@@ -78,7 +78,7 @@ class PostPolicy
     public function delete(User $user, Post $post)
     {
         if ($user->can('delete own posts')) {
-            return $user->id === $post->user_id;
+            return $user->id == $post->user_id;
         }
 
         if ($user->can('delete any post')) {
