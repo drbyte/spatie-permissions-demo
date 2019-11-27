@@ -32,11 +32,10 @@ class PermissionsDemoSeeder extends Seeder
         $role2->givePermissionTo('publish articles');
         $role2->givePermissionTo('unpublish articles');
 
-        // create a demo user
+        // create a demo user - see UserFactory for default password
         $user = Factory(App\User::class)->create([
             'name' => 'Example User',
             'email' => 'test@example.com',
-            // factory default password is 'secret'
         ]);
         $user->assignRole($role1);
     }
