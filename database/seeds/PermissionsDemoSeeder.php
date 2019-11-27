@@ -36,7 +36,7 @@ class PermissionsDemoSeeder extends Seeder
         $user = Factory(App\User::class)->create([
             'name' => 'Example User',
             'email' => 'test@example.com',
-            // factory default password is 'secret'
+            'password' => bcrypt('secret'),
         ]);
         $user->assignRole($role1);
     }
