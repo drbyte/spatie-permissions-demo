@@ -13,11 +13,11 @@ class PostPolicy
     /**
      * Determine whether the user can view the post.
      *
-     * @param  \App\User $user
+     * @param  \App\User|null $user
      * @param  \App\Post $post
      * @return mixed
      */
-    public function view(User $user, Post $post)
+    public function view(?User $user, Post $post)
     {
         if ($post->published) {
             return true;
