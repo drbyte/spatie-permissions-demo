@@ -11,6 +11,6 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 
-/.idea
-/.vagrant
+# ignoring for this demo pkg
+package-lock.json
 composer.lock
