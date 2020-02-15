@@ -8,7 +8,7 @@ use Spatie\Permission\PermissionRegistrar;
 class PermissionsDemoSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Create the initial roles and permissions.
      *
      * @return void
      */
@@ -32,10 +32,11 @@ class PermissionsDemoSeeder extends Seeder
         $role2->givePermissionTo('publish articles');
         $role2->givePermissionTo('unpublish articles');
 
-        // create a demo user - see UserFactory for default password
+        // create a demo user
         $user = Factory(App\User::class)->create([
             'name' => 'Example User',
             'email' => 'test@example.com',
+            // factory default password is 'secret'
         ]);
         $user->assignRole($role1);
     }
