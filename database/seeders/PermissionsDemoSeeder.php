@@ -30,7 +30,7 @@ class PermissionsDemoSeeder extends Seeder
         $role1->givePermissionTo('edit articles');
         $role1->givePermissionTo('delete articles');
 
-        $role2 = Role::create(['name' => 'admin']);
+        $role2 = Role::create(['name' => 'Admin']);
         $role2->givePermissionTo('publish articles');
         $role2->givePermissionTo('unpublish articles');
 
@@ -40,5 +40,16 @@ class PermissionsDemoSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
         $user->assignRole($role1);
+
+
+        // super admin
+        Permission::create(['name' => 'assign roles']);
+        $role3 = Role::create(['name' => 'Super-Admin']);
+        $role3->givePermissionTo('assign roles');
+        $admin = \App\Models\User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+        ]);
+        $admin->assignRole('Super-Admin');
     }
 }

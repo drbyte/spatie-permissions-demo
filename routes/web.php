@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RolesAndPermissionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,11 @@ Route::get('/testmiddleware', [App\Http\Controllers\HomeController::class, 'test
 Route::get('/my_roles', [App\Http\Controllers\ExamplesController::class, 'show_my_roles'])->middleware('auth')->name('show');
 
 Route::resource('/post', App\Http\Controllers\PostsController::class);
+
+// role-assignment screen
+Route::group(['prefix' => 'admin', 'middleware' => ['role:Admin|Super-Admin']], function () {
+    Route::get('/permissions', [RolesAndPermissionsController::class, 'index'])->name('showAssignedRoles');
+    Route::post('/assign_role', [RolesAndPermissionsController::class, 'store'])->name('assignRole');
+    Route::delete('/revoke_role', [RolesAndPermissionsController::class, 'destroy'])->name('revokeRole');
+});
 
