@@ -14,13 +14,13 @@ class ExamplesTest extends TestCase
     {
         $this->artisan('db:seed');
 
-        $user = \App\User::find(1);
+        $user = \App\Models\User::first();
         $this->actingAs($user)->assertAuthenticated();
 
         $response = $this->get('/my_roles');
 
         $response->assertStatus(200);
         $response->assertSee('Collection');
-        $response->assertSee('writer');
+        $response->assertSee('Writer');
     }
 }

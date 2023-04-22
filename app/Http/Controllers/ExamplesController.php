@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use \App\Models\User;
 use Illuminate\Http\Request;
 
 class ExamplesController extends Controller
@@ -10,7 +11,7 @@ class ExamplesController extends Controller
     {
 //        $user = auth()->user();
 //        or
-        $user = \App\User::find(1);
+        $user = User::first();
         $roles = $user->getRoleNames();
 
         return var_export($roles, true);

@@ -1,13 +1,28 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Post::class, function (Faker $faker) {
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-    return [
-        'title' => $faker->words(4),
-        'body' => $faker->paragraph(3),
-        'published' => $faker->numberBetween(0,1),
-        'user_id' => 1, // @TODO could generate a user here when none is passed through
-    ];
-});
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ */
+class PostFactory extends Factory
+{
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'title' => fake()->words(4),
+            'body' => fake()->paragraph(3),
+            'published' => fake()->numberBetween(0,1),
+            'user_id' => 1, // @TODO could generate a user here when none is passed through
+        ];
+    }
+}

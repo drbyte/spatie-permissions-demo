@@ -1,5 +1,8 @@
 <?php
 
+namespace Database\Seeders;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -8,11 +11,10 @@ use Spatie\Permission\PermissionRegistrar;
 class PermissionsDemoSeeder extends Seeder
 {
     /**
-     * Create the initial roles and permissions.
-     *
-     * @return void
+     * Create some roles and permissions.
+
      */
-    public function run()
+    public function run(): void
     {
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
@@ -24,7 +26,7 @@ class PermissionsDemoSeeder extends Seeder
         Permission::create(['name' => 'unpublish articles']);
 
         // create roles and assign existing permissions
-        $role1 = Role::create(['name' => 'writer']);
+        $role1 = Role::create(['name' => 'Writer']);
         $role1->givePermissionTo('edit articles');
         $role1->givePermissionTo('delete articles');
 
@@ -33,10 +35,9 @@ class PermissionsDemoSeeder extends Seeder
         $role2->givePermissionTo('unpublish articles');
 
         // create a demo user
-        $user = Factory(App\User::class)->create([
+        $user = \App\Models\User::factory()->create([
             'name' => 'Example User',
             'email' => 'test@example.com',
-            // factory default password is 'password'
         ]);
         $user->assignRole($role1);
     }

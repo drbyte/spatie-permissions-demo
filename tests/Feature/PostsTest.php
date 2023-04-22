@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Post;
+use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
@@ -20,12 +22,12 @@ class PostsTest extends TestCase
 
         $this->setupPermissions();
 
-        $this->member = factory(\App\User::class)->create();
+        $this->member = User::factory()->create();
 
-        $this->author = factory(\App\User::class)->create();
+        $this->author = User::factory()->create();
         $this->author->assignRole('author');
 
-        $this->admin = factory(\App\User::class)->create();
+        $this->admin = User::factory()->create();
         $this->admin->assignRole('admin');
 
         $this->setupPosts();
@@ -53,31 +55,31 @@ class PostsTest extends TestCase
     {
         \DB::table('posts')->truncate();
 
-        factory(\App\Post::class)->create([
+        Post::factory()->create([
             'title' => 'This is the first post. (author)',
             'published' => 1,
             'user_id' => $this->author->id,
         ]);
 
-        factory(\App\Post::class)->create([
+        Post::factory()->create([
             'title' => 'This is the second post. (admin)',
             'published' => 1,
             'user_id' => $this->admin->id,
         ]);
 
-        factory(\App\Post::class)->create([
+        Post::factory()->create([
             'title' => 'This is the third post. (author)',
             'published' => 1,
             'user_id' => $this->author->id,
         ]);
 
-        factory(\App\Post::class)->create([
+        Post::factory()->create([
             'title' => 'This is the fourth post. (admin, unpublished)',
             'published' => 0,
             'user_id' => $this->admin->id,
         ]);
 
-        factory(\App\Post::class)->create([
+        Post::factory()->create([
             'title' => 'This is the fifth post. (member)',
             'published' => 1,
             'user_id' => $this->member->id,

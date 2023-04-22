@@ -23,13 +23,13 @@ class MiddlewareTest extends TestCase
         $role1->givePermissionTo($permission);
         $role2->givePermissionTo($permission);
 
-        $user = factory(\App\User::class)->create([
+        $user = \App\Models\User::factory()->create([
             'name' => 'Example User',
             'email' => 'test@example.com',
         ]);
         $user->assignRole($role2);
 
-        $user = \App\User::first();
+        $user = \App\Models\User::first();
         $this->withoutExceptionHandling()->actingAs($user)->assertAuthenticated();
 
         $response = $this->get('/testmiddleware');
