@@ -19,8 +19,6 @@ class PermissionsDemoTest extends TestCase
         $permission = Permission::create(['name' => 'edit articles']);
         $role1 = Role::create(['name' => 'writer']);
         $role1->givePermissionTo($permission->name);
-
-        $this->app->make(PermissionRegistrar::class)->registerPermissions();
     }
 
     /**

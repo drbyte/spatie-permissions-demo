@@ -47,8 +47,6 @@ class PostsTest extends TestCase
 
         Role::findOrCreate('admin')
             ->givePermissionTo(['view unpublished posts', 'create posts', 'edit all posts', 'delete any post']);
-
-        $this->app->make(PermissionRegistrar::class)->registerPermissions();
     }
 
     protected function setupPosts()

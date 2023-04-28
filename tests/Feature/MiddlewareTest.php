@@ -15,8 +15,6 @@ class MiddlewareTest extends TestCase
     /** @test */
     public function middleware_in_constructor_using_only()
     {
-        $this->app->make(PermissionRegistrar::class)->forgetCachedPermissions();
-
         $permission = Permission::create(['name' => 'edit articles']);
         $role1 = Role::create(['name' => 'admin']);
         $role2 = Role::create(['name' => 'writer']);
