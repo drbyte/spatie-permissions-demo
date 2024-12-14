@@ -9,3 +9,11 @@
 @else
   <p>Sorry, you may NOT edit articles.</p>
 @endcan
+
+  <div>
+      <a href="{{route('showAssignedRoles')}}">Assign Permissions Page</a>
+  </div>
+    <div>
+        <a href="{{route('show')}}">My Roles</a>
+        <a href="{{route('post.index')}}">View Posts</a>
+    </div>

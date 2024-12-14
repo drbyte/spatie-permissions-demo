@@ -16,7 +16,7 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white dark:text-white">
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
                     @auth
@@ -41,10 +41,39 @@
                 <div class="mt-16">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
 
-                    @include('permissions-demo')
+                        @hasrole('writer')
+                        <p>You have been assigned the [writer] role.</p>
+                        @else
+                            <p>You do NOT have the writer role.</p>
+                            @endhasrole
+
+                            @can('edit articles')
+                                <p>You have permission to [edit articles].</p>
+                            @else
+                                <p>Sorry, you may NOT edit articles.</p>
+                            @endcan
 
                     </div>
+
+
                 </div>
+                <div>
+                    <h1 class="text-xl mt-6 font-bold">Example Accounts:</h1>
+                    <div>
+                        <h2 class="text-lg mt-6 mb-4 font-bold">Admin Account</h2>
+                        <p>User: admin@example.com</p>
+                        <p>Password: password</p>
+                    </div>
+                    <div class="blockquote">
+                        <h2 class="text-lg mt-6 mb-4 font-bold">Normal Account with Writer Role</h2>
+                        <p>User: test@example.com</p>
+                        <p>Password: password</p>
+                    </div>
+
+                </div>
+                <p class="text-xl text-center btn btn-md btn-danger mt-6">
+                    <a href="{{route('home')}}" class="">View Demo</a>
+                </p>
 
                 <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
                     <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
