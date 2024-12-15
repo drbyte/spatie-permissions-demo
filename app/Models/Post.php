@@ -18,7 +18,12 @@ class Post extends Model
 
     public function scopePublished(Builder $query)
     {
-        return $query->where('published', 1);
+        //view unpublished posts if user has permission to
+        if(!auth()->user()?->getAllPermissions()->pluck('name')->contains('view unpublished posts'))
+        {
+            return $query->where('published', 1);
+        }
+
     }
 
     public function author()
