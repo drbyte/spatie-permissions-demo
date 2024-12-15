@@ -34,16 +34,6 @@ class PostPolicy
             return true;
         }
 
-        // visitors cannot view unpublished items
-        if ($user === null) {
-            return false;
-        }
-
-        // admin overrides published status
-        if ($user->can('view unpublished posts')) {
-            return true;
-        }
-
         // authors can view their own unpublished posts
         return $user->id == $post->user_id;
     }
@@ -56,7 +46,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        if ($user->can('create posts')) {
+        if ($user->can('publish articles')) {
             return true;
         }
     }
@@ -70,11 +60,19 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
+        // THIS WILL NOT WORK
+        // The parameter here MUST match the permissions in your database.
+        // 'edit own posts' is not a permission in our PermissionsDemoSeeder
+        // You won't get any run time errors but this will always return false
+        // To fix this add "edit own posts" permission and assign it to a role or user
         if ($user->can('edit own posts')) {
             return $user->id == $post->user_id;
         }
-
-        if ($user->can('edit all posts')) {
+        // THIS WILL WORK
+        // The parameter here MUST match the permissions in your database.
+        // 'edit articles' is not a permission in our PermissionsDemoSeeder
+        // So this will actually check the policy and return true is user has this permission
+        if ($user->can('edit articles')) {
             return true;
         }
     }
@@ -88,11 +86,11 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        if ($user->can('delete own posts')) {
+        if ($user->can('delete own articles')) {
             return $user->id == $post->user_id;
         }
 
-        if ($user->can('delete any post')) {
+        if ($user->can('delete articles')) {
             return true;
         }
     }
