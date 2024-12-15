@@ -70,8 +70,8 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        if ($user->can('edit own posts')) {
-            return $user->id == $post->user_id;
+        if ($user->id == $post->user_id) {
+            return true;
         }
 
         if ($user->can('edit all posts')) {
