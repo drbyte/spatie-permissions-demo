@@ -60,6 +60,15 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
+        // THIS WILL WORK
+        // The parameter here MUST match the permissions in your database.
+        // 'edit articles' is not a permission in our PermissionsDemoSeeder
+        // So this will actually check the policy and return true is user has this permission
+        // Note Order. If it matches here we return true. If it doesn't we proceed to next check
+        if ($user->can('edit articles')) {
+            return true;
+        }
+
         // THIS WILL NOT WORK
         // The parameter here MUST match the permissions in your database.
         // 'edit own posts' is not a permission in our PermissionsDemoSeeder
@@ -67,13 +76,6 @@ class PostPolicy
         // To fix this add "edit own posts" permission and assign it to a role or user
         if ($user->can('edit own posts')) {
             return $user->id == $post->user_id;
-        }
-        // THIS WILL WORK
-        // The parameter here MUST match the permissions in your database.
-        // 'edit articles' is not a permission in our PermissionsDemoSeeder
-        // So this will actually check the policy and return true is user has this permission
-        if ($user->can('edit articles')) {
-            return true;
         }
     }
 
@@ -86,6 +88,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
+
         if ($user->can('delete own articles')) {
             return $user->id == $post->user_id;
         }
