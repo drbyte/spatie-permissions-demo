@@ -10,10 +10,11 @@
   <p>Sorry, you may NOT edit articles.</p>
 @endcan
 
+
   <div>
-      <a href="{{route('showAssignedRoles')}}">Assign Permissions Page</a>
+      <ul>
+          <li><a href="{{route('showAssignedRoles')}}">Assign Permissions Page</a></li>
+          <li> <a href="{{route('show')}}">View My Roles</a></li>
+          <li><a href="{{route('post.index')}}">View Posts</a></li>
+      </ul>
   </div>
-    <div>
-        <a href="{{route('show')}}">My Roles</a>
-        <a href="{{route('post.index')}}">View Posts</a>
-    </div>
