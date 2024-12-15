@@ -24,6 +24,9 @@ class PermissionsDemoSeeder extends Seeder
         Permission::create(['name' => 'delete articles']);
         Permission::create(['name' => 'publish articles']);
         Permission::create(['name' => 'unpublish articles']);
+        Permission::create(['name' => 'delete own articles']);
+        // For Super Admin
+        Permission::create(['name' => 'assign roles']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'Writer']);
@@ -33,6 +36,7 @@ class PermissionsDemoSeeder extends Seeder
         $role2 = Role::create(['name' => 'Admin']);
         $role2->givePermissionTo('publish articles');
         $role2->givePermissionTo('unpublish articles');
+        $role2->givePermissionTo('delete own articles');
 
         // create a demo user
         $user = \App\Models\User::factory()->create([
@@ -43,7 +47,6 @@ class PermissionsDemoSeeder extends Seeder
 
 
         // super admin
-        Permission::create(['name' => 'assign roles']);
         $role3 = Role::create(['name' => 'Super-Admin']);
         $role3->givePermissionTo('assign roles');
         $admin = \App\Models\User::factory()->create([
