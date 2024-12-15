@@ -54,5 +54,25 @@ class PermissionsDemoSeeder extends Seeder
             'email' => 'admin@example.com',
         ]);
         $admin->assignRole('Super-Admin');
+
+        # Assign some random posts that are published
+        for($i = 0; $i < 15; $i++) {
+            $posts = \App\Models\Post::factory()->create([
+                                                              'title' => fake()->sentence(),
+                                                              'user_id' => random_int(1, 2),
+                                                              'body' => fake()->realText(),
+                                                              'published' => '1',
+                                                          ]);
+        }
+
+        # Assign some random posts that are unpublished
+        for($i = 0; $i < 15; $i++) {
+            $posts = \App\Models\Post::factory()->create([
+                                                             'title' => fake()->sentence(),
+                                                             'user_id' => random_int(1, 2),
+                                                             'body' => fake()->realText(),
+                                                             'published' => '',
+                                                         ]);
+        }
     }
 }
