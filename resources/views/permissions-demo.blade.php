@@ -1,11 +1,20 @@
-@hasrole('writer')
-  <p>You have been assigned the [writer] role.</p>
+@hasrole('author')
+  <p>You have been assigned the [author] role.</p>
 @else
-  <p>You do NOT have the writer role.</p>
+  <p>You do NOT have the author role.</p>
 @endhasrole
 
-@can('edit articles')
+@can('edit all posts')
   <p>You have permission to [edit articles].</p>
 @else
   <p>Sorry, you may NOT edit articles.</p>
 @endcan
+
+
+  <div>
+      <ul>
+          <li><a href="{{route('showAssignedRoles')}}">Assign Permissions Page</a></li>
+          <li> <a href="{{route('show')}}">View My Roles</a></li>
+          <li><a href="{{route('post.index')}}">View Posts</a></li>
+      </ul>
+  </div>

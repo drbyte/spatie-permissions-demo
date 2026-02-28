@@ -9,9 +9,8 @@ class ExamplesController extends Controller
 {
     public function show_my_roles()
     {
-//        $user = auth()->user();
-//        or
-        $user = User::first();
+
+        $user = auth()->user();
         $roles = $user->getRoleNames();
 
         return var_export($roles, true);

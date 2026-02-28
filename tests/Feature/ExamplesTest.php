@@ -21,6 +21,6 @@ class ExamplesTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Collection');
-        $response->assertSee('Writer');
+        $response->assertSee('author');
     }
 }
