@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
@@ -22,9 +23,7 @@ class RolePermissionGrantTest extends TestCase
         $role1->givePermissionTo($permission->name);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_assign_a_role_and_confirm_the_role_is_assigned()
     {
         $user = User::factory()->create();

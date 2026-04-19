@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Post;
 use App\Models\User;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
@@ -84,7 +85,7 @@ class PostsTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function visitors_can_view_posts_index()
     {
         $this->withoutExceptionHandling();
@@ -99,7 +100,7 @@ class PostsTest extends TestCase
         $response->assertSee('second post.');
     }
 
-    /** @test */
+    #[Test]
     public function members_can_view_specific_published_post()
     {
         $this->withoutExceptionHandling();
@@ -115,7 +116,7 @@ class PostsTest extends TestCase
         $response->assertSee('first post.');
     }
 
-    /** @test */
+    #[Test]
     public function members_cannot_see_unpublished_posts()
     {
         $this->setupPosts();
@@ -128,7 +129,7 @@ class PostsTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function authors_can_view_posts()
     {
         $this->withoutExceptionHandling();
@@ -143,7 +144,7 @@ class PostsTest extends TestCase
         $response->assertSee('first post.');
     }
 
-    /** @test */
+    #[Test]
     public function authors_can_edit_own_posts()
     {
         $this->withoutExceptionHandling();
@@ -158,7 +159,7 @@ class PostsTest extends TestCase
         $response->assertSee('first post.');
     }
 
-    /** @test */
+    #[Test]
     public function admins_can_edit_others_posts()
     {
         $this->withoutExceptionHandling();
@@ -173,7 +174,7 @@ class PostsTest extends TestCase
         $response->assertSee('fifth post.');
     }
 
-    /** @test */
+    #[Test]
     public function members_cannot_delete_posts()
     {
         $this->withoutExceptionHandling();
@@ -189,7 +190,7 @@ class PostsTest extends TestCase
         $response->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function authors_can_delete_own_posts()
     {
         $this->setupPosts();
@@ -203,7 +204,7 @@ class PostsTest extends TestCase
         $response->assertDontSee('first post.');
     }
 
-    /** @test */
+    #[Test]
     public function admins_can_delete_posts()
     {
         $this->setupPosts();
