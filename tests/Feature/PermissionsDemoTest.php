@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
@@ -21,9 +22,7 @@ class PermissionsDemoTest extends TestCase
         $role1->givePermissionTo($permission->name);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_recognizes_blade_hasrole_directive()
     {
         $response = $this->get('/');
@@ -32,9 +31,7 @@ class PermissionsDemoTest extends TestCase
         $response->assertDontSeeText('@hasrole');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_shows_message_confirming_permission_is_not_granted()
     {
         $response = $this->get('/');
@@ -42,9 +39,7 @@ class PermissionsDemoTest extends TestCase
         $response->assertSeeText('Sorry, you may NOT edit [edit all posts]');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_shows_message_confirming_permission_is_granted()
     {
         $user = \App\Models\User::factory()->create();
