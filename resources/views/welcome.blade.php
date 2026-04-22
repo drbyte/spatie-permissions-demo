@@ -54,30 +54,25 @@
 
                 @include('permissions-demo')
 
+                <div class="py-3">
+                    @hasrole('admin')
+                    <p>You have been assigned the [admin] role.</p>
+                    @else
+                    <p>You do NOT have the admin role.</p>
+                    @endhasrole
+
+                    @can('edit all posts')
+                        <p>You have permission to [edit all posts].</p>
+                    @else
+                        <p>Sorry, you may NOT edit [edit all posts].</p>
+                    @endcan
+
+                </div>
             </div>
         </div>
 
         <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
             <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                <div class="flex items-center gap-4">
-                
-                    <div>
-                        @hasrole('admin')
-                        <p>You have been assigned the [admin] role.</p>
-                        @else
-                            <p>You do NOT have the admin role.</p>
-                            @endhasrole
-
-                            @can('edit all posts')
-                                <p>You have permission to [edit all posts].</p>
-                            @else
-                                <p>Sorry, you may NOT edit [edit all posts].</p>
-                            @endcan
-
-                    </div>
-
-
-                </div>
                 <div>
                     <h1 class="text-xl mt-6 font-bold">Example Accounts:</h1>
                     <div>
@@ -97,23 +92,21 @@
                     </div>
 
                 </div>
+                <div>
                 <p class="text-xl text-center btn btn-md btn-danger mt-6">
-                    <a href="{{route('home')}}" class="">View Demo</a>
+                    <a href="{{route('home')}}" class="underline">View Demo</a>
                 </p>
 
                 <p class="text-xl text-center btn btn-md btn-danger mt-6">
-                    <a href="{{route('post.index')}}" class="">View Posts As Guest User</a>
+                    <a href="{{route('post.index')}}" class="underline">View Posts As Guest User</a>
                 </p>
-
                 </div>
-            </div>
-
-            <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
             </div>
         </div>
 
-
+        <div class="mt-4 ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
+            Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+        </div>
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
                 <div class="text-[13px] leading-[20px] flex-1 p-6 pb-6 lg:p-20 lg:pb-10 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
