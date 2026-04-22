@@ -35,3 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:Admin|Super-Admin']], 
     Route::delete('/revoke_role', [RolesAndPermissionsController::class, 'destroy'])->name('revokeRole');
 });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
