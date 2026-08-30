@@ -17,8 +17,8 @@ class PermissionsDemoTest extends TestCase
     {
         parent::setUp();
 
-        $permission = Permission::create(['name' => 'edit articles']);
-        $role1 = Role::create(['name' => 'writer']);
+        $permission = Permission::create(['name' => 'edit all posts']);
+        $role1 = Role::create(['name' => 'admin']);
         $role1->givePermissionTo($permission->name);
     }
 
@@ -27,7 +27,7 @@ class PermissionsDemoTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertSeeText('writer');
+        $response->assertSeeText('admin');
         $response->assertDontSeeText('@hasrole');
     }
 
@@ -36,20 +36,20 @@ class PermissionsDemoTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertSeeText('Sorry, you may NOT edit articles.');
+        $response->assertSeeText('Sorry, you may NOT edit [edit all posts]');
     }
 
     #[Test]
     public function it_shows_message_confirming_permission_is_granted()
     {
         $user = \App\Models\User::factory()->create();
-        $user->assignRole('writer');
+        $user->assignRole('admin');
 
         $response = $this->actingAs(\App\Models\User::find($user->id))->get('/');
 
         $response->assertDontSeeText('@hasrole');
 
-        $response->assertSeeText("You have permission to [edit articles].");
+        $response->assertSeeText("You have permission to [edit all posts].");
     }
 
 }
