@@ -4,8 +4,21 @@ This is a simple app to demonstrate implementing the spatie/laravel-permission p
 
 Many of the code examples used in this demo also come from the examples in the Spatie package README.
 
+## Running Demo
+```
+composer install
+npm install
+# Setup your .env file, provided .env.example will work for sqlite
+cp -n .env.example .env
+touch database/database.sqlite
+php artisan key:generate
+php artisan db:seed
 
-## Creating Your Own Demo
+# Run Dev Server
+php artisan serve
+```
+
+## Creating Your Own Demo From Scratch
 You could create your own  with the following steps:
 
 Initial setup:
